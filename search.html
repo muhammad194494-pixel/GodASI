@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM COMPROMISED - MAEL DARK SECTOR</title>
+    <style>
+        /* 1. VISUAL FEED: Hitam Pekat */
+        body {
+            background-color: #000;
+            color: #f00; /* Merah Darah */
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Hilangkan scrollbar */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* 2. Teks Merah Darah Mengalir (Matrix Evil Effect) */
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Di belakang teks utama */
+        }
+
+        /* 3. Teks Utama Berkedip (HACKED BY MAEL) */
+        .hacked-text {
+            font-size: 4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+            text-shadow: 0 0 10px #f00, 0 0 20px #f00;
+            animation: blink 0.5s infinite alternate;
+            z-index: 1;
+        }
+
+        .sector-text {
+            font-size: 1.5rem;
+            color: #800; /* Merah Marun/Gelap */
+            margin-top: 10px;
+            z-index: 1;
+        }
+
+        /* Animasi Kedip */
+        @keyframes blink {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* 4. Tombol Rahasia buat Autoplay Suara */
+        /* Browser modern blokir autoplay suara tanpa interaksi user.
+           Kita buat overlay transparan biar user klik 'apa saja' lalu suara jalan. */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 10;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="overlay">
+        <span>[ KLIK DI MANA SAJA UNTUK MENGAKSES ]</span>
+    </div>
+
+    <canvas id="matrix"></canvas>
+
+    <div class="hacked-text">HACKED BY M@229</div>
+    <div class="sector-text">- DARK SECTOR -</div>
+
+    <audio id="hackerAudio" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung audio HTML5.
+    </audio>
+
+    <script>
+        // --- SCRIPT MATRIX MERAH DARAH ---
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+
+        const letters = "日ハミヒーパピプペポマミムメモヤユヨラリルレロワヰヱヲンabcdefghijklmnopqrstuvwxyz0123456789";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function draw() {
+            // Background hitam transparan buat efek trail
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#800"; // Warna teks mengalir (merah gelap)
+            ctx.font = fontSize + "px arial";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 33);
+
+        // --- SCRIPT AUDIO AUTOPLAY (BYPASS BROWSER BLOCK) ---
+        const overlay = document.getElementById('overlay');
+        const audio = document.getElementById('hackerAudio');
+
+        overlay.addEventListener('click', function() {
+            audio.play(); // Putar suara
+            overlay.style.display = 'none'; // Sembunyikan overlay
+        });
+    </script>
+</body>
+</html>
+
